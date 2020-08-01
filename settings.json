@@ -1,0 +1,16 @@
+{
+    "python.pythonPath": "C:\\Users\\b1018194\\anaconda3\\envs\\py37\\python.exe",
+    "python.condaPath": "C:\\Users\\b1018194\\anaconda3\\Scripts\\",
+    "python.linting.pylintArgs": [
+        // numpyを見逃す
+        "--extension-pkg-whitelist=numpy",
+    ],
+    "python.formatting.autopep8Args": [
+        // セミコロンでの改行するのを見逃す
+        "--ignore",
+        "E70",
+        // 1行80文字の制限を緩くする
+        "--max-line-length",
+        "120",
+    ]
+}
