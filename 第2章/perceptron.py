@@ -79,7 +79,7 @@ class Perceptron(object):
                 # バイアスユニットの更新
                 self.weight_vector[0] += update_weight_value
                 # 重みΔwが正しく更新されていない(Δw != 0)なら誤分類としてカウントする
-                # Trueは1, Falseは2として扱うので、update_weight_value != 0.0が真なら1となる
+                # Trueは1, Falseは0として扱うので、update_weight_value != 0.0が真なら1となる
                 errors += int(update_weight_value != 0.0)
 
             # 反復回数ごとの誤差を格納する
