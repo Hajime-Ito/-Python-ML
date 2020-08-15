@@ -7,6 +7,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 import perceptron as pt
+import plot_decision_regions as pdr
 
 # csvファイルの読み込み
 dataframe = pd.read_csv('https://archive.ics.uci.edu/ml/'
@@ -22,13 +23,13 @@ training_data_matrix = dataframe.iloc[0:100, [0, 2]].values
 # 品種setosaのプロット(赤のO)
 plt.scatter(training_data_matrix[:50, 0],
             training_data_matrix[:50, 1],
-            color="red",
+            color='red',
             marker='o',
             label='setosa')
 # 品種versicolorのプロット(青のX)
 plt.scatter(training_data_matrix[50:100, 0],
             training_data_matrix[50:100, 1],
-            color="blue",
+            color='blue',
             marker='x',
             label='versicolor')
 # 軸のラベル設定
@@ -40,7 +41,7 @@ plt.legend(loc='upper left')
 plt.show()
 
 # パーセプトロンのオブジェクトの生成(インスタンス化)
-ppn = pt.Perceptron(learning_rate=0.1, epoch=10, random_state=1)
+ppn = pt.Perceptron(learning_rate=0.1, epoch=20, random_state=1)
 # トレーニングデータへのモデル適合
 ppn.fit(training_data_matrix, class_label_vector)
 # エポックと誤分類誤差の関係の折れ線グラフをプロット
@@ -49,4 +50,10 @@ plt.plot(range(1, len(ppn.error_list) + 1), ppn.error_list, marker='o')
 plt.xlabel('Epochs')
 plt.ylabel('Number of update')
 # 図の表示
+plt.show()
+
+pdr.plot_decision_regions(training_data_matrix, class_label_vector, classifier=ppn)
+plt.xlabel('sepal length [cm]')
+plt.ylabel('petal length [cm]')
+plt.legend(loc='upper left')
 plt.show()

@@ -73,7 +73,7 @@ class Perceptron(object):
             # データセットの各行(サンプル)について重みの更新
             for training_data_vector, class_label in zip(training_data_matrix, class_label_vector):
                 # Δwを計算(正のラベルが負と識別された場合 2 or 負のラベルが正と識別された場合 -2 or 正しく識別された場合 0)
-                update_weight_value = self.learning_rate * (class_label - self.__predict(training_data_vector))
+                update_weight_value = self.learning_rate * (class_label - self.predict(training_data_vector))
                 # 重みの更新 Δw(定数) * training_data_vector(ベクトル)
                 self.weight_vector[1:] += update_weight_value * training_data_vector
                 # バイアスユニットの更新
@@ -95,19 +95,18 @@ class Perceptron(object):
             training_data_matrix ([np.ndarray]): [shape = [サンプルの数, 特徴ベクトルの要素数]]
 
         Returns:
-            np.ndarray[float]: [shape = [1], intで返さないのは後々ndarray同士で演算するため] 
+            np.ndarray[float]: [shape = [特徴ベクトルの要素数]] 
         """
         # バイアスユニットは特徴ベクトルと積をとらない
         return np.dot(training_data_matrix, self.weight_vector[1:]) + self.weight_vector[0]
 
-    def __predict(self, training_data_matrix: "np.ndarray[[float]]") -> "np.ndarray[int]":
+    def predict(self, training_data_matrix: "np.ndarray[[float]]") -> "np.ndarray[int]":
         """予測クラスラベルを返す
-        プライベートメソッド
 
         Args:
             training_data_matrix (np.ndarray[[float]]): [shape = [サンプルの数, 特徴ベクトルの要素数]]
 
         Returns:
-            np.ndarray[int]: [shape = [1], intで返さないのは後々ndarray同士で演算するため]
+            np.ndarray[int]: [shape = [特徴ベクトルの要素数]]
         """
         return np.where(self.__net_input(training_data_matrix) > 0.0, 1, -1)
